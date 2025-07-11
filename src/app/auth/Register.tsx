@@ -36,7 +36,6 @@ export const RegisterPage = () => {
     const handleRegister = (values: z.infer<typeof RegisterSchema>) => {
         setError("")
         setSuccess("")
-
         startTransition(() => {
             Register(values)
                 .then((data) => {

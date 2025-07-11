@@ -8,6 +8,7 @@ import React from "react";
 import {cn} from "@/lib/utils";
 import {Navbar} from "@/components/nav/Navbar";
 import {siteConfig} from "../../config/metadata";
+import {QueryProvider} from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
     title: {
@@ -35,11 +36,13 @@ export default async function RootLayout({children,}: Readonly<{
             className={cn("bg-background w-full flex flex-col items-center", Inter.className)}
         >
         <SessionProvider session={session}>
-            <main className={"flex flex-col justify-between items-center w-full overflow-x-hidden"}>
-                <Navbar/>
-                {children}
-            </main>
-            <Toaster position="bottom-right"/>
+            <QueryProvider>
+                <main className={"flex flex-col justify-between items-center w-full overflow-x-hidden"}>
+                    <Navbar/>
+                    {children}
+                </main>
+                <Toaster position="bottom-right"/>
+            </QueryProvider>
         </SessionProvider>
         </body>
         </html>

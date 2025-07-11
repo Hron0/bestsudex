@@ -39,6 +39,8 @@ export const Login = async (values: z.infer<typeof LoginSchema>) => {
     return {error: "Invalid data"}
 }
 
+// TODO Localize
+
 export const Register = async (values: z.infer<typeof RegisterSchema>) => {
     const validatedFields = RegisterSchema.safeParse(values)
 
@@ -55,7 +57,6 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
         if (existingUser) {
             return {error: "Email is already taken. Try different one or Login into your account."}
         }
-
 
         await db.insert(Users).values({
             login: login,

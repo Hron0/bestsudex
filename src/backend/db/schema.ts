@@ -8,11 +8,9 @@ export const Users = pgTable("users", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     login: text("login").unique(),
-    password: text("password"),
     email: text("email").unique(),
-    emailVerified: timestamp("emailVerified", { mode: "date" }),
+    password: text("password"),
     role: roles("role").default("USER"),
-    image: text("image"),
 })
 
 export const Expertises = pgTable("expertises", {

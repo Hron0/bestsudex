@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
         mdxRs: true,
     },
     output: "standalone",
+    transpilePackages: ['next-mdx-remote'],
     images: {
         remotePatterns: [
             {

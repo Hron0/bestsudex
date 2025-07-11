@@ -34,11 +34,11 @@ export const Navbar = () => {
             className={"hidden lg:flex bg-background drop-shadow rounded-sm absolute top-0 h-20 flex-row items-center justify-between mt-4 px-10 container w-full z-10"}>
             <div className={"flex flex-row justify-between items-center gap-4 w-[40%] list-none"}>
                 <NavigationMenuItem>
-                    <Link href={"/"} legacyBehavior passHref>
-                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-xl font-light")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-xl font-light")} asChild>
+                        <Link href={"/"} passHref>
                             Главная
-                        </NavigationMenuLink>
-                    </Link>
+                        </Link>
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 {session &&
@@ -67,15 +67,15 @@ export const Navbar = () => {
             <div className={"flex flex-row items-center justify-around gap-2 w-[40%] list-none"}>
                 {rightLinks.map((link, index) => (
                     <NavigationMenuItem key={index}>
-                        <Link href={link.href} legacyBehavior passHref>
-                            <NavigationMenuLink
+                            <NavigationMenuLink asChild
                                 className={cn(navigationMenuTriggerStyle(), "text-xl font-light px-0.5  text-nowrap")}>
-                                {link.name}
+                                <Link href={link.href} passHref>
+                                    {link.name}
+                                </Link>
                             </NavigationMenuLink>
-                        </Link>
                     </NavigationMenuItem>
-                ))}
+                    ))}
             </div>
         </NavigationMenu>
-    );
+);
 };
