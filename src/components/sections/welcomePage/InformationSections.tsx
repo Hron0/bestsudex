@@ -1,6 +1,7 @@
 "use server"
 import * as React from 'react';
 import Image from "next/image";
+import EmailForm from "@/components/sections/welcomePage/EmailForm";
 
 export const InformationSection = async () => {
     return (
@@ -31,7 +32,7 @@ export const InformationSection = async () => {
                             судебных экспертиз и рецензированию судебных экспертиз.</h3>
                     </div>
 
-                    {/*<EmailForm />*/}
+                    <EmailForm />
 
                 </div>
                 <Image
