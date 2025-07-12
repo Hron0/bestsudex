@@ -28,7 +28,7 @@ export const Login = async (values: z.infer<typeof LoginSchema>) => {
                     case "CredentialsSignin":
                         return {error: "Неверные данные"}
                     default:
-                        return {error: "Something went wrong"}
+                        return {error: "Что-то пошло не так..."}
                 }
             }
 
@@ -36,7 +36,7 @@ export const Login = async (values: z.infer<typeof LoginSchema>) => {
         }
     }
 
-    return {error: "Invalid data"}
+    return {error: "Введённые вами данные имеют неверный формат."}
 }
 
 // TODO Localize
@@ -55,7 +55,7 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
         })
 
         if (existingUser) {
-            return {error: "Email is already taken. Try different one or Login into your account."}
+            return {error: "Этот адрес электронной почты уже используется."}
         }
 
         await db.insert(Users).values({
@@ -65,7 +65,7 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
         })
 
 
-        return {success: "User created successfully, now Log into your account, you will be redirected in a second."}
+        return {success: "Вы успешно зарегестрировались, теперь войдите в ваш аккаунт."}
     }
     return {error: "Invalid data"}
 }

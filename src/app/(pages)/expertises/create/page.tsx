@@ -2,57 +2,59 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { toast } from "sonner"
-import { createExpertise } from "@/lib/data/expertises"
+import {useState} from "react"
+import {useRouter} from "next/navigation"
+import {Button} from "@/components/ui/button"
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
+import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
+import {Textarea} from "@/components/ui/textarea"
+import {toast} from "sonner"
+import {createExpertise} from "@/lib/data/expertises"
+import FormPreviewDialog from "@/components/expertises/FormPreviewDialog";
+import FormPopover from "@/components/expertises/FormPopover";
 
 export default function CreateExpertisePage() {
     const [title, setTitle] = useState("")
-    const [mdxContent, setMdxContent] = useState(`# ${title || "Your Expertise Title"}
+    const [mdxContent, setMdxContent] = useState(`# ${title || "Заголовок"}
 
-## Overview
+## Обзор
 
-Provide a comprehensive overview of your expertise service here.
+Предоставьте здесь полный обзор ваших экспертных услуг.
 
-## Our Approach
+## Наш подход
 
-### Methodology
-- Step 1: Initial assessment and consultation
-- Step 2: Detailed analysis and research
-- Step 3: Report preparation and recommendations
+### Методология
+- Шаг 1: Первичная оценка и консультация
+- Шаг 2: Подробный анализ и исследование
+- Шаг 3: Подготовка отчета и рекомендации
 
-### Key Features
-- Professional analysis
-- Detailed documentation
-- Expert recommendations
-- Ongoing support
+### Ключевые особенности
+- Профессиональный анализ
+- Подробная документация
+- Рекомендации экспертов
+- Постоянная поддержка
 
-## Case Studies
+## Примеры из практики
 
-### Case Study 1: Example Project
-Brief description of a successful project or engagement.
+### Пример из практики 1: Пример проекта
+Краткое описание успешного проекта или проекта.
 
-**Challenge:** What was the main challenge?
-**Solution:** How did you address it?
-**Result:** What was the outcome?
+**Проблема:** В чем заключалась основная проблема?
+**Решение:** Как вы ее решили?
+**Результат:** Каков был результат?
 
-## Contact Information
+## Контактная информация
 
-For more information about this expertise service, please contact us:
+Для получения дополнительной информации об этой экспертной услуге свяжитесь с нами:
 
-- **Email:** expertise@company.com
-- **Phone:** +1 (555) 123-4567
-- **Website:** www.company.com
+- **Электронная почта:** expertise@company.com
+- **Телефон:** +1 (555) 123-4567
+- **Веб-сайт:** www.company.com
 
 ---
 
-*This expertise service is provided by our certified professionals with extensive experience in the field.*`)
+*Эту экспертную услугу предоставляют наши сертифицированные специалисты с обширным опытом работы в данной области.*`)
 
     const [creating, setCreating] = useState(false)
     const router = useRouter()
@@ -61,12 +63,12 @@ For more information about this expertise service, please contact us:
         e.preventDefault()
 
         if (!title.trim()) {
-            toast.error("Please enter a title")
+            toast.error("Укажите заголовок.")
             return
         }
 
         if (!mdxContent.trim()) {
-            toast.error("Please enter MDX content")
+            toast.error("Введите данные в поле содержания.")
             return
         }
 
@@ -77,11 +79,11 @@ For more information about this expertise service, please contact us:
                 mdxContent,
             )
 
-            toast.success("Expertise created successfully!")
+            toast.success("Экспертиза была успешно создана.")
             router.push(`/expertises/${expertise.id}`)
         } catch (error) {
-            console.error("Error creating expertise:", error)
-            toast.error("Failed to create expertise")
+            console.error("Ошибка при создании:", error)
+            toast.error("Ошибка при создании экспертизы.")
         } finally {
             setCreating(false)
         }
@@ -92,61 +94,67 @@ For more information about this expertise service, please contact us:
         setTitle(newTitle)
         if (mdxContent.startsWith("# ")) {
             const lines = mdxContent.split("\n")
-            lines[0] = `# ${newTitle || "Your Expertise Title"}`
+            lines[0] = `# ${newTitle || "Заголовок экспертизы"}`
             setMdxContent(lines.join("\n"))
         }
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 mt-24">
             <Card>
-                <CardHeader>
-                    <CardTitle className="text-2xl font-bold">Create New Expertise</CardTitle>
+                <CardHeader className={"w-full"}>
+                    <div className={"flex flex-row align-center justify-between"}>
+                        <CardTitle className="text-2xl font-bold">Создание новой экспертизы</CardTitle>
+                        <FormPopover />
+                    </div>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
-                            <Label htmlFor="title">Title</Label>
+                            <Label htmlFor="title">Заголовок</Label>
                             <Input
                                 id="title"
                                 type="text"
                                 value={title}
                                 onChange={(e) => handleTitleChange(e.target.value)}
-                                placeholder="Enter expertise title..."
+                                placeholder="Судебно-строительная экспертиза..."
                                 required
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="content">MDX Content</Label>
+                            <Label htmlFor="content">Содержание</Label>
                             <Textarea
                                 id="content"
                                 value={mdxContent}
                                 onChange={(e) => setMdxContent(e.target.value)}
-                                placeholder="Enter your MDX content here..."
+                                placeholder="Поддерживается формат .mdx/.md"
                                 className="min-h-[400px] font-mono text-sm"
                                 required
                             />
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
-                                <p className="font-medium mb-1">MDX Formatting Tips:</p>
-                                <ul className="list-disc list-inside space-y-1 text-xs">
-                                    <li># Heading 1, ## Heading 2, ### Heading 3</li>
-                                    <li>**bold text**, *italic text*</li>
-                                    <li>- Bullet points, 1. Numbered lists</li>
-                                    <li>{"> Blockquotes for important notes"}</li>
-                                    <li>```code blocks``` for code examples</li>
-                                    <li>[Link text](URL) for links</li>
-                                </ul>
-                            </div>
+                            {/*<div className="text-sm text-gray-600 dark:text-gray-400">*/}
+                            {/*    <p className="font-medium mb-1">MDX Formatting Tips:</p>*/}
+                            {/*    <ul className="list-disc list-inside space-y-1 text-xs">*/}
+                            {/*        <li># Heading 1, ## Heading 2, ### Heading 3</li>*/}
+                            {/*        <li>**bold text**, *italic text*</li>*/}
+                            {/*        <li>- Bullet points, 1. Numbered lists</li>*/}
+                            {/*        <li>{"> Blockquotes for important notes"}</li>*/}
+                            {/*        <li>```code blocks``` for code examples</li>*/}
+                            {/*        <li>[Link text](URL) for links</li>*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
                         </div>
 
-                        <div className="flex gap-4">
-                            <Button type="submit" disabled={creating}>
-                                {creating ? "Creating..." : "Create Expertise"}
-                            </Button>
-                            <Button type="button" variant="outline" onClick={() => router.push("/expertises")}>
-                                Cancel
-                            </Button>
+                        <div className="flex align-center justify-between">
+                            <div className={"flex gap-4"}>
+                                <Button type="submit" disabled={creating}>
+                                    {creating ? "Идёт создание..." : "Создать"}
+                                </Button>
+                                <Button type="button" variant="outline" onClick={() => router.push("/expertises")}>
+                                    Отмена
+                                </Button>
+                            </div>
+                            <FormPreviewDialog mdx={mdxContent}/>
                         </div>
                     </form>
                 </CardContent>

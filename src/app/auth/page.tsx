@@ -13,7 +13,7 @@ const Page: NextPage = () => {
         <Tabs defaultValue="login" className={"overflow-hidden absolute top-1/4 flex flex-col items-center gap-2"}>
             <TabsList className="">
                 <TabsTrigger value={"login"} onClick={() => setVal("login")}>Авторизация</TabsTrigger>
-                <TabsTrigger value={"registration"} onClick={() => setVal("registration")}>Регистрация</TabsTrigger>
+                {/*<TabsTrigger value={"registration"} onClick={() => setVal("registration")}>Регистрация</TabsTrigger>*/}
             </TabsList>
             <Card className="w-[95%] lg:w-[600px] shadow-md p-1">
                 <CardHeader>
@@ -25,9 +25,9 @@ const Page: NextPage = () => {
                     <TabsContent value={"login"}>
                         <LoginPage/>
                     </TabsContent>
-                    <TabsContent value={"registration"}>
-                        <RegisterPage/>
-                    </TabsContent>
+                    {/*<TabsContent value={"registration"}>*/}
+                    {/*    <RegisterPage/>*/}
+                    {/*</TabsContent>*/}
                 </CardContent>
             </Card>
 
