@@ -16,7 +16,6 @@ import {useSessionContext} from "@/components/providers/session-provider";
 const rightLinks = [
     {name: "Экспертизы", href: "/expertises/"},
     {name: "Сообщество", href: "/community"},
-    {name: "Блог", href: "/blog"},
 ]
 
 // TODO: legacyBehavior on <Link />

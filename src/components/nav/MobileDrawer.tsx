@@ -16,7 +16,6 @@ import {useSessionContext} from "@/components/providers/session-provider";
 const alwaysAvailableLinks = [
     {name: "Экспертизы", href: "/expertises/"},
     {name: "Сообщество", href: "/community"},
-    {name: "Блог", href: "/blog"},
 ]
 
 export function MobileDrawer() {
